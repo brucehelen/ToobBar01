@@ -10,6 +10,7 @@
 
 #define kDuration    0.5
 #define kRowH        50
+#define kNameTag     10
 
 
 @interface MJViewController ()
@@ -72,19 +73,27 @@
     label.backgroundColor = [UIColor clearColor];
     NSString *name = _name[arc4random_uniform(_name.count)];
     label.text = name;
+    label.tag = kNameTag;
     [label setTextAlignment:NSTextAlignmentCenter];
     [view addSubview:label];
-    
+
     // 创建按钮
     UIButton *button = [[UIButton alloc]init];
     button.frame = CGRectMake(0, 0, kRowH, kRowH);
     int imageIndex = arc4random_uniform(9);
     UIImage *image = [UIImage imageNamed: [NSString stringWithFormat:@"01%d.png", imageIndex]];
     [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(iconClick:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button];
-    
-    
+
     return view;
+}
+
+
+- (void)iconClick:(UIButton*)btn
+{
+    UILabel *lable = (UILabel*)[btn.superview viewWithTag:kNameTag];
+    NSLog(@"lable: %@", lable.text);
 }
 
 
