@@ -8,11 +8,17 @@
 
 #import "MJViewController.h"
 
+#define kDuration    0.5
+#define kRowH        50
+
+
 @interface MJViewController ()
 - (IBAction)add:(UIBarButtonItem *)sender;
 - (IBAction)remove:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *trash;
+
+@property NSArray *image;
 @end
 
 @implementation MJViewController
@@ -27,8 +33,7 @@
 {
     UIView *lastObj;
     
-    UIView *view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor redColor];
+    UIView *view = [self createView];
     NSLog(@"view = %@", self.view.subviews);
     
     if (self.view.subviews.count == 3) {
@@ -37,26 +42,49 @@
     } else {
         lastObj = [self.view.subviews lastObject];
     }
-    
+
     CGFloat posY = lastObj.frame.origin.y + lastObj.frame.size.height + 1;
-    
-    //CGRect tempF = view.frame;
-    //tempF.origin.x = self.view.frame.size.width;
-    //view.frame = tempF;
-    view.frame = CGRectMake(self.view.frame.size.width, posY, self.view.frame.size.width, 50);
+
+    view.frame = CGRectMake(self.view.frame.size.width, posY, self.view.frame.size.width, kRowH);
     view.alpha = 0;
     
-    [UIView animateWithDuration:1.0 animations:^{
-        view.frame = CGRectMake(0, posY, self.view.frame.size.width, 50);
+    [UIView animateWithDuration:kDuration animations:^{
+        view.frame = CGRectMake(0, posY, self.view.frame.size.width, kRowH);
         view.alpha = 1;
     } completion:^(BOOL finished) {
         NSLog(@"动画执行完毕");
     }];
-    
-    NSLog(@"函数执行完毕");
+
     [self.view addSubview:view];
     _trash.enabled = YES;
 }
+
+
+- (UIView*)createView
+{
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor redColor];
+    
+    // 创建标签
+    UILabel *label = [[UILabel alloc]init];
+    label.frame = CGRectMake(0, 0, self.view.frame.size.width, kRowH);
+    label.backgroundColor = [UIColor clearColor];
+    label.text = @"haha";
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [view addSubview:label];
+    
+    // 创建按钮
+    UIButton *button = [[UIButton alloc]init];
+    button.frame = CGRectMake(0, 0, kRowH, kRowH);
+    int imageIndex = arc4random_uniform(9);
+    UIImage *image = [UIImage imageNamed: [NSString stringWithFormat:@"01%d.png", imageIndex]];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [view addSubview:button];
+    
+    
+    return view;
+}
+
 
 - (IBAction)remove:(UIBarButtonItem *)sender
 {
@@ -64,7 +92,7 @@
         return;
     }
     UIView *lastObj = [self.view.subviews lastObject];
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:kDuration animations:^{
         lastObj.frame = CGRectMake(self.view.frame.size.width, lastObj.frame.origin.y, self.view.frame.size.width, 50);
         lastObj.alpha = 0;
     } completion:^(BOOL finished) {
