@@ -85,10 +85,44 @@
     [button setBackgroundImage:image forState:UIControlStateNormal];
     [button addTarget:self action:@selector(iconClick:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:button];
-
+    
+    //创建删除按钮
+    UIButton *delete = [[UIButton alloc]init];
+    delete.frame = CGRectMake(260, 15, 50, 20);
+    [delete setTitle:@"删除" forState:UIControlStateNormal];
+    [delete addTarget:self action:@selector(deleteClick:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:delete];
+    
     return view;
 }
 
+#pragma mark 删除这一行view，并且下面的view向上移动
+- (void)deleteClick:(UIButton*)btn
+{
+    // 添加删除动画
+    [UIView animateWithDuration:kDuration animations:^{
+        CGRect tempF = btn.superview.frame;
+        tempF.origin.x = self.view.frame.size.width;
+        btn.superview.frame = tempF;
+        btn.superview.alpha = 0;
+    } completion:^(BOOL finished) {
+        // 这行view下面的控件向上移动
+        int startIndex = [self.view.subviews indexOfObject:btn.superview];
+        NSLog(@"startIndex = %d, count = %d", startIndex, self.view.subviews.count - 2);
+        [btn.superview removeFromSuperview];
+        for (int i = startIndex; i < self.view.subviews.count - 2; i++) {
+            UIView *view = self.view.subviews[i];
+            CGRect tempF = view.frame;
+            tempF.origin.y -= kRowH + 1;
+            view.frame = tempF;
+        }
+        
+        
+    }];
+    
+    
+    
+}
 
 - (void)iconClick:(UIButton*)btn
 {
@@ -100,6 +134,7 @@
 - (IBAction)remove:(UIBarButtonItem *)sender
 {
     if (self.view.subviews.count == 3) {
+        _trash.enabled = NO;
         return;
     }
     UIView *lastObj = [self.view.subviews lastObject];
