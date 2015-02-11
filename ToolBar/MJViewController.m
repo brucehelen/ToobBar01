@@ -17,8 +17,7 @@
 - (IBAction)remove:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *trash;
-
-@property NSArray *image;
+@property NSArray *name;
 @end
 
 @implementation MJViewController
@@ -26,6 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _name = @[@"西门庆", @"东门庆", @"南门庆", @"北门庆", @"中门庆"];
 }
 
 
@@ -69,7 +70,8 @@
     UILabel *label = [[UILabel alloc]init];
     label.frame = CGRectMake(0, 0, self.view.frame.size.width, kRowH);
     label.backgroundColor = [UIColor clearColor];
-    label.text = @"haha";
+    NSString *name = _name[arc4random_uniform(_name.count)];
+    label.text = name;
     [label setTextAlignment:NSTextAlignmentCenter];
     [view addSubview:label];
     
