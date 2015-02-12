@@ -35,7 +35,8 @@
 {
     UIView *lastObj;
     
-    UIView *view = [self createView];
+    //UIView *view = [self createView];
+    UIView *view = [self createViewWithXib:@"RowView"];
     
     if (self.view.subviews.count == 3) {
         // UIToolbar + _UILayoutGuide + _UILayoutGuide
@@ -60,6 +61,27 @@
     _trash.enabled = YES;
 }
 
+- (UIView*)createViewWithXib:(NSString*)xib
+{
+    NSArray *views = [[NSBundle mainBundle]loadNibNamed:xib owner:nil options:nil];
+    
+    UIView *rowView = views[0];
+    
+    // 1. 修改图标
+    UIButton *icon = (UIButton*)[rowView viewWithTag:1];
+    NSString *iconName = [NSString stringWithFormat:@"01%d.png", arc4random_uniform(9)];
+    [icon setImage:[UIImage imageNamed:iconName] forState:UIControlStateNormal];
+    
+    // 2. 设置标签
+    UILabel *label = (UILabel*)[rowView viewWithTag:2];
+    label.text = _name[arc4random_uniform(_name.count)];
+    
+    // 3. 删除按钮
+    UIButton *delete = (UIButton*)[rowView viewWithTag:3];
+    [delete addTarget:self action:@selector(deleteClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return rowView;
+}
 
 - (UIView*)createView
 {

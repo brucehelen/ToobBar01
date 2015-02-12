@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		115C35A61A8C4C67000147E1 /* RowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115C35A51A8C4C67000147E1 /* RowView.xib */; };
 		11AA5B5E1A8AFAB80056F370 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AA5B5D1A8AFAB80056F370 /* Foundation.framework */; };
 		11AA5B601A8AFAB80056F370 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AA5B5F1A8AFAB80056F370 /* CoreGraphics.framework */; };
 		11AA5B621A8AFAB80056F370 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AA5B611A8AFAB80056F370 /* UIKit.framework */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		115C35A51A8C4C67000147E1 /* RowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RowView.xib; sourceTree = "<group>"; };
 		11AA5B5A1A8AFAB80056F370 /* ToolBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11AA5B5D1A8AFAB80056F370 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		11AA5B5F1A8AFAB80056F370 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -149,6 +151,7 @@
 				11AA5B661A8AFAB80056F370 /* InfoPlist.strings */,
 				11AA5B691A8AFAB80056F370 /* main.m */,
 				11AA5B6B1A8AFAB80056F370 /* ToolBar-Prefix.pch */,
+				115C35A51A8C4C67000147E1 /* RowView.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				11AA5B9E1A8B571E0056F370 /* 012.png in Resources */,
 				11AA5B711A8AFAB80056F370 /* Main.storyboard in Resources */,
 				11AA5BA21A8B571E0056F370 /* 016.png in Resources */,
+				115C35A61A8C4C67000147E1 /* RowView.xib in Resources */,
 				11AA5BA31A8B571E0056F370 /* 017.png in Resources */,
 				11AA5B9C1A8B571E0056F370 /* 010.png in Resources */,
 				11AA5BA01A8B571E0056F370 /* 014.png in Resources */,
@@ -501,6 +505,7 @@
 				11AA5B8E1A8AFAB90056F370 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11AA5B8F1A8AFAB90056F370 /* Build configuration list for PBXNativeTarget "ToolBarTests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +514,7 @@
 				11AA5B911A8AFAB90056F370 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
