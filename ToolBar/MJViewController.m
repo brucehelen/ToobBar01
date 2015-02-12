@@ -36,7 +36,6 @@
     UIView *lastObj;
     
     UIView *view = [self createView];
-    NSLog(@"view = %@", self.view.subviews);
     
     if (self.view.subviews.count == 3) {
         // UIToolbar + _UILayoutGuide + _UILayoutGuide
@@ -54,7 +53,7 @@
         view.frame = CGRectMake(0, posY, self.view.frame.size.width, kRowH);
         view.alpha = 1;
     } completion:^(BOOL finished) {
-        NSLog(@"动画执行完毕");
+        //NSLog(@"动画执行完毕");
     }];
 
     [self.view addSubview:view];
@@ -108,20 +107,20 @@
     } completion:^(BOOL finished) {
         // 这行view下面的控件向上移动
         int startIndex = [self.view.subviews indexOfObject:btn.superview];
-        NSLog(@"startIndex = %d, count = %d", startIndex, self.view.subviews.count - 2);
+        int count = self.view.subviews.count - 2;
         [btn.superview removeFromSuperview];
-        for (int i = startIndex; i < self.view.subviews.count - 2; i++) {
-            UIView *view = self.view.subviews[i];
-            CGRect tempF = view.frame;
-            tempF.origin.y -= kRowH + 1;
-            view.frame = tempF;
-        }
         
+        [UIView animateWithDuration:0.2 animations:^{
+            for (int i = startIndex; i < count + 1; i++) {
+                UIView *view = self.view.subviews[i];
+                CGRect tempF = view.frame;
+                tempF.origin.y -= kRowH + 1;
+                view.frame = tempF;
+            }
+        }];
         
+        if (self.view.subviews.count == 3) _trash.enabled = NO;
     }];
-    
-    
-    
 }
 
 - (void)iconClick:(UIButton*)btn
@@ -142,7 +141,6 @@
         lastObj.frame = CGRectMake(self.view.frame.size.width, lastObj.frame.origin.y, self.view.frame.size.width, 50);
         lastObj.alpha = 0;
     } completion:^(BOOL finished) {
-        NSLog(@"删除动画执行完毕");
         [lastObj removeFromSuperview];
         if (self.view.subviews.count == 3) {
             _trash.enabled = NO;
